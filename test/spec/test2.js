@@ -1,18 +1,11 @@
-var webdriverjs = require('webdriverjs'),
-    assert      = require('assert');
+var assert = require('assert');
 
 describe('my webdriverjs tests', function(){
 
-    this.timeout(99999999);
-    var client = {};
-
-    before(function(done){
-        client = webdriverjs.remote({ singleton: true, desiredCapabilities: {browserName: 'chrome'} });
-        client.init(done);
-    });
+    before(h.setup);
 
     it('Github test',function(done) {
-        client
+        this.client
             .url('https://github.com/')
             .getElementSize('.header-logo-wordmark', function(err, result) {
                 assert(err === null);
@@ -30,7 +23,4 @@ describe('my webdriverjs tests', function(){
             .call(done);
     });
 
-    after(function(done) {
-        client.end(done);
-    });
 });
